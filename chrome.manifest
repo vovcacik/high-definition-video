@@ -1,0 +1,2 @@
+content    hdv    chrome/content/    contentaccessible=yes
+overlay    chrome://browser/content/browser.xul    chrome://hdv/content/browserOverlay.xul

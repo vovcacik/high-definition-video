@@ -1,4 +1,6 @@
-high-definition-video
+High Definition Video
 =====================
 
-Firefox addon that makes HD the default video quality.
+Supported video players:
+  - YouTube
+  - _more added on request_
