@@ -2,7 +2,7 @@
  * @see https://developers.google.com/youtube/js_api_reference
  */
 function onYouTubePlayerReady(player){
-    var YT_PLAYERSTATE_CUED = 5;
+    var YT_PLAYERSTATE_UNSTARTED = -1;
     var setHighestQuality = function(player) {
         // We need to be little bit stubborn about setting playback quality, because:
         // a) half the time between onYouTubePlayerReady call and actual playback
@@ -10,7 +10,7 @@ function onYouTubePlayerReady(player){
         // it to be ready before playback starts. Setting quality during playback
         // won't prevent player to buffer low quality video at the beginning.
         // b) video ads block the settings too.
-        // c) cued video may begin with video ad (see b).
+        // c) changing video may result in video ad (see b).
         var intervalId = window.setInterval(function() {
             var highestQuality = player.getAvailableQualityLevels()[0] || "highres";
             player.setPlaybackQuality(highestQuality);
@@ -26,7 +26,7 @@ function onYouTubePlayerReady(player){
     if (player && typeof player === "object") {
         setHighestQuality(player);
         player.addEventListener("onStateChange", function(event) {
-            if (event === YT_PLAYERSTATE_CUED) {
+            if (event === YT_PLAYERSTATE_UNSTARTED) {
                 // Player has changed the video (without page reload).
                 setHighestQuality(player);
             }
