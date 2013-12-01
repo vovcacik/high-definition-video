@@ -2,6 +2,10 @@
  * @see https://developers.google.com/youtube/js_api_reference
  */
 function onYouTubePlayerReady(player){
+    // The player argument may be the player object or player ID.
+    if (player && typeof player === "string") player = document.getElementById(player);
+    if (!player) return;
+
     var YT_PLAYERSTATE_UNSTARTED = -1;
     var setHighestQuality = function(player) {
         // We need to be little bit stubborn about setting playback quality, because:
@@ -25,16 +29,11 @@ function onYouTubePlayerReady(player){
         }, 100);
     };
 
-    // The onYouTubePlayerReady() is called twice. During first call the 'player'
-    // parameter equals to player ID string. On the second call it equals to
-    // the player object. Make sure we respond to the second call only.
-    if (player && typeof player === "object") {
-        setHighestQuality(player);
-        player.addEventListener("onStateChange", function(event) {
-            if (event === YT_PLAYERSTATE_UNSTARTED) {
-                // Player has changed the video (without page reload).
-                setHighestQuality(player);
-            }
-        });
-    }
+    setHighestQuality(player);
+    player.addEventListener("onStateChange", function(event) {
+        if (event === YT_PLAYERSTATE_UNSTARTED) {
+            // Player has changed the video (without page reload).
+            setHighestQuality(player);
+        }
+    });
 }
