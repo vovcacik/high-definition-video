@@ -12,9 +12,14 @@ function onYouTubePlayerReady(player){
         // b) video ads block the settings too.
         // c) changing video may result in video ad (see b).
         var intervalId = window.setInterval(function() {
-            var highestQuality = player.getAvailableQualityLevels()[0] || "highres";
-            player.setPlaybackQuality(highestQuality);
-            if (player.getPlaybackQuality() === highestQuality) {
+            try {
+                var highestQuality = player.getAvailableQualityLevels()[0] || "highres";
+                player.setPlaybackQuality(highestQuality);
+                if (player.getPlaybackQuality() === highestQuality) {
+                    window.clearInterval(intervalId);
+                }
+            } catch(e) {
+                // Make sure interval isn't lingering after player is destroyed.
                 window.clearInterval(intervalId);
             }
         }, 100);
