@@ -1,3 +1,6 @@
+/**
+ * @see http://wiki.greasespot.net/Content_Script_Injection
+ */
 var hdv = {
     init: function() {
         if (gBrowser) gBrowser.addEventListener("DOMContentLoaded", this.onDOMContentLoaded);
