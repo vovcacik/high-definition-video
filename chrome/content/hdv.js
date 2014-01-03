@@ -10,15 +10,17 @@ function onYouTubePlayerReady(player){
     var pixelsToQuality = {
         // Used in portrait mode.
         "width": [
-            // Following values are computed from height array below in 16:10 ratio,
-            // which will work perfectly for 16:10 and 16:9, but could result in
-            // smaller than optimum quality for 4:3 screens. This trade off prevents
-            // selecting higher than optimum quality on 16:10 and 16:9 screens.
-            [384, "small"],
-            [576, "medium"],
-            [768, "large"],
-            [1152, "hd720"],
-            [1728, "hd1080"],
+            // The quality levels are based on video height so try to guess reasonable
+            // width for each of them. (There is no simple way to get actual video
+            // resolution across player versions and web pages.)
+            // Expecting narrow aspect ratio is safe in terms of optimum quality,
+            // but could lead to selecting higher than necessary quality, which
+            // is prevented by expecting wide aspect ratio for high quality levels.
+            [320, "small"],     // 4:3
+            [480, "medium"],    // 4:3
+            [640, "large"],     // 4:3
+            [1280, "hd720"],    // 16:9
+            [1920, "hd1080"],   // 16:9
             [Number.POSITIVE_INFINITY, "highres"]
         ],
         // Used in landscape mode.
