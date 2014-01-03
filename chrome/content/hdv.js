@@ -61,9 +61,10 @@ function onYouTubePlayerReady(player){
         // c) changing video may result in video ad (see b).
         var intervalId = window.setInterval(function() {
             try {
-                var quality = getOptimumQuality();
-                player.setPlaybackQuality(quality);
-                if (player.getPlaybackQuality() === quality) {
+                // get and cache optimum quality
+                this._quality = this._quality || getOptimumQuality();
+                player.setPlaybackQuality(this._quality);
+                if (player.getPlaybackQuality() === this._quality) {
                     window.clearInterval(intervalId);
                 }
             } catch(e) {
