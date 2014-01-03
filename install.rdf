@@ -8,7 +8,7 @@
     <em:type>2</em:type>
 
     <em:name>High Definition Video</em:name>
-    <em:version>1.0.1</em:version>
+    <em:version>1.0.2</em:version>
     <em:description>Makes HD the default video quality.</em:description>
     <em:creator>Vlastimil Ovčáčík</em:creator>
     <em:homepageURL>https://addons.mozilla.org/addon/high-definition-video/</em:homepageURL>
