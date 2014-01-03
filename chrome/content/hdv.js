@@ -34,8 +34,9 @@ function onYouTubePlayerReady(player){
 
     /**
      * Returns optimum quality, which is the smallest video resolution that overflows
-     * the screen resolution at least on one axis. This will result in downscaling
-     * even in fullscreen mode and thus highest quality on given screen.
+     * the screen resolution at least on one axis (the shorter axis here). This will
+     * result in downscaling even in fullscreen mode and thus highest quality on given
+     * screen.
      * Note: screen.height and screen.width properties return incorrect values for
      * zoomed and unzoomed pages.
      */
