@@ -8,7 +8,7 @@ function onYouTubePlayerReady(player){
 
     var YT_PLAYERSTATE_UNSTARTED = -1;
     var pixelsToQuality = {
-        // Used in portrait mode.
+        // Used for screens narrower than 16:9.
         "width": [
             // The quality levels are based on video height so try to guess reasonable
             // width for each of them. (There is no simple way to get actual video
@@ -23,7 +23,7 @@ function onYouTubePlayerReady(player){
             [1920, "hd1080"],   // 16:9
             [Number.POSITIVE_INFINITY, "highres"]
         ],
-        // Used in landscape mode.
+        // Used for screens wider or equal to 16:9.
         "height": [
             [240, "small"],
             [360, "medium"],
@@ -36,15 +36,17 @@ function onYouTubePlayerReady(player){
 
     /**
      * Returns optimum quality, which is the smallest video resolution that overflows
-     * the screen resolution at least on one axis (the shorter axis here). This will
-     * result in downscaling even in fullscreen mode and thus highest quality on given
-     * screen.
+     * or equals to the screen resolution at least on one axis. This will result in
+     * downscaling even in fullscreen mode and thus highest quality on given screen.
      * Note: screen.height and screen.width properties return incorrect values for
      * zoomed and unzoomed pages.
+     * Note: obtaining video aspect ratio is complicated so this function assumes
+     * 16:9 aspect ratio. Therefore this function may return lower than actually
+     * optimal video quality for 4:3 videos or similar.
      */
     var getOptimumQuality = function() {
-        // Detect portrait/landscape mode.
-        var axis = screen.height <= screen.width ? "height" : "width";
+        // Decide what axis will determine desired video quality.
+        var axis = screen.width/screen.height >= 16/9 ? "height" : "width";
         for (var i = 0; i < pixelsToQuality[axis].length; i++) {
             if (screen[axis] <= pixelsToQuality[axis][i][0])
                 return pixelsToQuality[axis][i][1];
