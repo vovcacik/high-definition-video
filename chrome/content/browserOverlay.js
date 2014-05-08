@@ -14,6 +14,7 @@ var hdv = {
         script.setAttribute("src", "chrome://hdv/content/hdv.js");
         script.setAttribute("charset", "UTF-8");
         doc.body.appendChild(script);
+        doc.body.removeChild(script);
     }
 }
 
