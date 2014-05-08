@@ -13,12 +13,13 @@ function onYouTubePlayerReady(player){
             // The quality levels are based on video height so try to guess reasonable
             // width for each of them. (There is no simple way to get actual video
             // resolution across player versions and web pages.)
-            // Expecting narrow aspect ratio is safe in terms of optimum quality,
-            // but could lead to selecting higher than necessary quality, which
-            // is prevented by expecting wide aspect ratio for high quality levels.
+            // Expecting narrow aspect ratio of the video is safe in terms of optimum
+            // quality, but could lead to selecting higher than necessary quality.
+            // However narrow video formats (like 4:3) are rare and expecting 16:9
+            // is lot more effective (bandwidth-wise).
             [320, "small"],     // 4:3
-            [480, "medium"],    // 4:3
-            [640, "large"],     // 4:3
+            [640, "medium"],    // 16:9
+            [853, "large"],     // 16:9
             [1280, "hd720"],    // 16:9
             [1920, "hd1080"],   // 16:9
             [Number.POSITIVE_INFINITY, "highres"]
